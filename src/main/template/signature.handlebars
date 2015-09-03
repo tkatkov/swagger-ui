@@ -1,7 +1,10 @@
 <div>
 <ul class="signature-nav">
   <li><a class="description-link" href="#" data-sw-translate>Model</a></li>
-  <li><a class="snippet-link" href="#" data-sw-translate>Model Schema</a></li>
+  <li><a class="snippet-link" href="#" data-sw-translate>JSON Schema</a></li>
+  {{#if exampleXML}}
+    <li><a class="exampleXML-link" href="#" data-sw-translate>XML Example</a></li>
+  {{/if}}
 </ul>
 <div>
 
@@ -14,5 +17,11 @@
     <pre><code>{{sampleJSON}}</code></pre>
     <small class="notice"></small>
   </div>
+  {{#if exampleXML}}
+        <div class="exampleXML">
+        <pre><code>{{exampleXML}}</code></pre>
+        <small class="notice"></small>
+        </div>
+  {{/if}}
 </div>
 

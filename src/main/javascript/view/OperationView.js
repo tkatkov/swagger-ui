@@ -19,6 +19,30 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     this.parentId = this.model.parentId;
     this.nickname = this.model.nickname;
     this.model.encodedParentId = encodeURIComponent(this.parentId);
+
+    Handlebars.registerHelper('isbody', function(collection, opts) {
+      if (collection.length === 1 && collection[0].in === 'body' ) {
+        return opts.fn(this);
+      } else {
+        return opts.inverse(this);
+      }
+    });
+
+    Handlebars.registerHelper('first', function( collection, count, options ){
+      options = options || count;
+      count = ( typeof count === 'number' ) ? count : 1;
+      var result = '';
+      var i = 0;
+      for( var key in collection ){
+        if( collection.hasOwnProperty( key ) ){
+          result += options.fn( collection[key] );
+          i++;
+          if( i === count ) {break;}
+        }
+      }
+      return result;
+    });
+
     return this;
   },
 
@@ -161,7 +185,8 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
         this.model.successCode = key;
         if (typeof value === 'object' && typeof value.createJSONSample === 'function') {
           signatureModel = {
-            sampleJSON: JSON.stringify(value.createJSONSample(), void 0, 2),
+            sampleJSON: JSON.stringify(this.createModelSample(value), void 0, 2),
+            exampleXML: this.formatXml(value.createJSONSample()),
             isParam: false,
             signature: value.getMockSignature()
           };
@@ -170,6 +195,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     } else if (this.model.responseClassSignature && this.model.responseClassSignature !== 'string') {
       signatureModel = {
         sampleJSON: this.model.responseSampleJSON,
+        exampleXML: this.model.exampleXML,
         isParam: false,
         signature: this.model.responseClassSignature
       };
@@ -177,6 +203,9 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     var opts = this.options.swaggerOptions;
     if (opts.showRequestHeaders) {
       this.model.showRequestHeaders = true;
+    }
+    if (opts.showResponseHeaders) {
+      this.model.showResponseHeaders = true;
     }
     $(this.el).html(Handlebars.templates.operation(this.model));
     if (signatureModel) {
@@ -225,6 +254,13 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     ref4 = this.model.parameters;
     for (p = 0, len3 = ref4.length; p < len3; p++) {
       param = ref4[p];
+      param.justOne = (ref4.length === 1);
+      var innerType = this.model.getType(param);
+      if (this.model.models[innerType]) {
+        innerType = this.model.models[innerType];
+        param.sampleJSON = JSON.stringify(this.createModelSample(innerType), void 0, 2);
+        param.exampleXML = this.formatXml(innerType.createJSONSample());
+      }
       this.addParameter(param, contentTypeModel.consumes);
     }
     ref5 = this.model.responseMessages;
@@ -439,7 +475,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 
   // Show response from server
   showResponse: function(response) {
-    var prettyJson = JSON.stringify(response, null, '\t').replace(/\n/g, '<br>');
+    var prettyJson = JSON.stringify(response, null, '\t');
     $('.response_body', $(this.el)).html(_.escape(prettyJson));
   },
 
@@ -458,6 +494,9 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   // TODO: Cleanup CoffeeScript artifacts
   formatXml: function(xml) {
     var contexp, fn, formatted, indent, l, lastType, len, lines, ln, pad, reg, transitions, wsexp;
+    if (!xml){
+      return xml;
+    }
     reg = /(>)(<)(\/*)/g;
     wsexp = /[ ]*(.*)[ ]+\n/g;
     contexp = /(<.+>)(.+\n)/g;
@@ -516,6 +555,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
         }
         return results;
       })()).join('');
+      ln = ln.replace(';',';\n'+padding).replace('<![CDATA[','<![CDATA[\n'+padding);
       if (fromTo === 'opening->closing') {
         formatted = formatted.substr(0, formatted.length - 1) + ln + '\n';
       } else {
@@ -527,6 +567,14 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       fn(ln);
     }
     return formatted;
+  },
+
+  createModelSample: function (value) {
+    var saveExample = value.definition.example;
+    value.definition.example = null;
+    var ret = SwaggerClient.SchemaMarkup.schemaToJSON(value.definition, value.models, null, value.modelPropertyMacro);
+    value.definition.example = saveExample;
+    return ret;
   },
 
   // puts the response data in UI
@@ -569,6 +617,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       var json = null;
       try {
         json = JSON.stringify(JSON.parse(content), null, '  ');
+        json = json.replace(/\\n/g, '\n'); // so DDL will show up pretty.
       } catch (_error) {
         json = 'can\'t parse JSON.  Raw result:\n\n' + content;
       }
@@ -644,7 +693,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 
     //adds curl output
     var curlCommand = this.model.asCurl(this.map);
-    curlCommand = curlCommand.replace('!', '&#33;');
+    curlCommand = curlCommand.replace('!', '&#33;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     $( '.curl', $(this.el)).html('<pre>' + curlCommand + '</pre>');
 
     // only highlight the response if response is less than threshold, default state is highlight response

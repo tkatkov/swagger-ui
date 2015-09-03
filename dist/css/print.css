@@ -383,6 +383,9 @@
 .swagger-section .swagger-ui-wrap .model-signature .snippet small {
   font-size: 0.75em;
 }
+.swagger-section .swagger-ui-wrap .model-signature .exampleXML small {
+  font-size: 0.75em;
+}
 .swagger-section .swagger-ui-wrap .model-signature .propOptKey {
   font-style: italic;
 }
@@ -444,7 +447,7 @@
   clear: both;
 }
 .swagger-section .swagger-ui-wrap .body-textarea {
-  width: 300px;
+  width: 400px;
   height: 100px;
   border: 1px solid #aaa;
 }
