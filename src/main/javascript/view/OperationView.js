@@ -19,8 +19,9 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     this.parentId = this.model.parentId;
     this.nickname = this.model.nickname;
     this.model.encodedParentId = encodeURIComponent(this.parentId);
-
+    //WIDE: adding helpers to allow parameter body handling
     Handlebars.registerHelper('isbody', function(collection, opts) {
+      // return True if parameter of type 'body' is first one and the only one
       if (collection.length === 1 && collection[0].in === 'body' ) {
         return opts.fn(this);
       } else {
@@ -29,6 +30,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     });
 
     Handlebars.registerHelper('first', function( collection, count, options ){
+      // return first parameter
       options = options || count;
       count = ( typeof count === 'number' ) ? count : 1;
       var result = '';
@@ -185,7 +187,9 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
         this.model.successCode = key;
         if (typeof value === 'object' && typeof value.createJSONSample === 'function') {
           signatureModel = {
+            //WIDE: use generated JSON as JSON sample
             sampleJSON: JSON.stringify(this.createModelSample(value), void 0, 2),
+            //WIDE: use example from swagger as XML sample
             exampleXML: this.formatXml(value.createJSONSample()),
             isParam: false,
             signature: value.getMockSignature()
@@ -195,6 +199,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     } else if (this.model.responseClassSignature && this.model.responseClassSignature !== 'string') {
       signatureModel = {
         sampleJSON: this.model.responseSampleJSON,
+        //WIDE: pass XML example to template
         exampleXML: this.model.exampleXML,
         isParam: false,
         signature: this.model.responseClassSignature
@@ -204,6 +209,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     if (opts.showRequestHeaders) {
       this.model.showRequestHeaders = true;
     }
+    //WIDE: pass showResponse flag to the engine
     if (opts.showResponseHeaders) {
       this.model.showResponseHeaders = true;
     }
@@ -254,6 +260,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     ref4 = this.model.parameters;
     for (p = 0, len3 = ref4.length; p < len3; p++) {
       param = ref4[p];
+      //WIDE: fetch proper JSON and XML samples
       param.justOne = (ref4.length === 1);
       var innerType = this.model.getType(param);
       if (this.model.models[innerType]) {
@@ -494,6 +501,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   // TODO: Cleanup CoffeeScript artifacts
   formatXml: function(xml) {
     var contexp, fn, formatted, indent, l, lastType, len, lines, ln, pad, reg, transitions, wsexp;
+    //WIDE: prevent error on empty xml
     if (!xml){
       return xml;
     }
@@ -555,6 +563,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
         }
         return results;
       })()).join('');
+      //WIDE: better display of DDLs
       ln = ln.replace(';',';\n'+padding).replace('<![CDATA[','<![CDATA[\n'+padding);
       if (fromTo === 'opening->closing') {
         formatted = formatted.substr(0, formatted.length - 1) + ln + '\n';
@@ -568,7 +577,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     }
     return formatted;
   },
-
+  //WIDE: this function uses stock schemaToJSON function to return generated JSON example by removing example from the spec for the duration of the call
   createModelSample: function (value) {
     var saveExample = value.definition.example;
     value.definition.example = null;
@@ -617,7 +626,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       var json = null;
       try {
         json = JSON.stringify(JSON.parse(content), null, '  ');
-        json = json.replace(/\\n/g, '\n'); // so DDL will show up pretty.
+        json = json.replace(/\\n/g, '\n'); //WIDE: so DDL will show up pretty.
       } catch (_error) {
         json = 'can\'t parse JSON.  Raw result:\n\n' + content;
       }
@@ -693,6 +702,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 
     //adds curl output
     var curlCommand = this.model.asCurl(this.map);
+    //WIDE: added so XML in curl displayed properly
     curlCommand = curlCommand.replace('!', '&#33;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     $( '.curl', $(this.el)).html('<pre>' + curlCommand + '</pre>');
 

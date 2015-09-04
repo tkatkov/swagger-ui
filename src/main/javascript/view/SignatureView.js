@@ -4,9 +4,9 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
   events: {
     'click a.description-link'       : 'switchToDescription',
     'click a.snippet-link'           : 'switchToSnippet',
-    'click a.exampleXML-link'        : 'switchToXMLExample',
+    'click a.exampleXML-link'        : 'switchToXMLExample', //WIDE: register click on example link reaction
     'mousedown .snippet'             : 'snippetToTextArea',
-    'mousedown .exampleXML'          : 'exampleXMLToTextArea'
+    'mousedown .exampleXML'          : 'exampleXMLToTextArea' //WIDE: register click on example reaction
   },
 
   initialize: function () {
@@ -17,7 +17,7 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
 
     $(this.el).html(Handlebars.templates.signature(this.model));
 
-    //this.switchToSnippet();
+    //WIDE: first show description
     this.switchToDescription();
 
     this.isParam = this.model.isParam;
@@ -41,7 +41,7 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
     $('.exampleXML-link',  $(this.el)).removeClass('selected');
   },
 
-  // handler for show signature
+  //WIDE: handler for show XML example
   switchToXMLExample: function(e){
     if (e) { e.preventDefault(); }
 
@@ -65,7 +65,7 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
     $('.description-link', $(this.el)).removeClass('selected');
   },
 
-  // handler for output to text area
+  //WIDE: output sample text parameter to text area
   textToTextArea: function(e, sampleText) {
     if (this.isParam) {
       if (e) { e.preventDefault(); }
@@ -82,13 +82,13 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
     }
   },
 
-  // handler for snippet to text area
+  //WIDE: handler for snippet to text area; also switches application type to json
   snippetToTextArea: function(e) {
     this.textToTextArea(e, this.model.sampleJSON);
     $('div select[name=parameterContentType]', $(this.el.parentNode.parentNode.parentNode)).val('application/json');
   },
 
-  // handler for XML example to text area
+  //WIDE handler for XML example to text area; also switches application type to xml
   exampleXMLToTextArea: function(e) {
     this.textToTextArea(e, this.model.exampleXML);
     $('div select[name=parameterContentType]', $(this.el.parentNode.parentNode.parentNode)).val('application/xml');

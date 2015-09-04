@@ -48,7 +48,7 @@ SwaggerUi.Views.ParameterView = Backbone.View.extend({
 
     var signatureModel = {
       sampleJSON: this.model.sampleJSON,
-      exampleXML: this.model.exampleXML,
+      exampleXML: this.model.exampleXML, //WIDE: oass example XML to template
       isParam: true,
       signature: this.model.signature
     };

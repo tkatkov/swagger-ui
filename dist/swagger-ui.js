@@ -316,7 +316,7 @@ this["Handlebars"]["templates"]["main"] = Handlebars.template({"1":function(dept
   return buffer + "\n";
 },"2":function(depth0,helpers,partials,data) {
   var stack1, lambda=this.lambda, escapeExpression=this.escapeExpression;
-  return "  <p>\n  <a href=\""
+  return "  <!--WIDE:  make description clickable to external URL-->\n  <p>\n  <a href=\""
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.externalDocs : depth0)) != null ? stack1.url : stack1), depth0))
     + "\" target=\"_blank\">"
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.externalDocs : depth0)) != null ? stack1.description : stack1), depth0))
@@ -354,7 +354,7 @@ this["Handlebars"]["templates"]["main"] = Handlebars.template({"1":function(dept
     + "</a></div>";
 },"14":function(depth0,helpers,partials,data) {
   var stack1, lambda=this.lambda, escapeExpression=this.escapeExpression;
-  return "    , <span style=\"font-variant: small-caps\">api version</span>: "
+  return "  , <span style=\"font-variant: small-caps\" data-sw-translate>api version</span>: "
     + escapeExpression(lambda(((stack1 = (depth0 != null ? depth0.info : depth0)) != null ? stack1.version : stack1), depth0))
     + "\n    ";
 },"16":function(depth0,helpers,partials,data) {
@@ -417,27 +417,27 @@ this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function
   },"16":function(depth0,helpers,partials,data) {
   return "        <div class='access'>\n          <span class=\"api-ic ic-off\" title=\"click to authenticate\"></span>\n        </div>\n";
   },"18":function(depth0,helpers,partials,data) {
-  var stack1, helperMissing=helpers.helperMissing, buffer = "";
+  var stack1, helperMissing=helpers.helperMissing, buffer = "            <table class='fullwidth'>\n              <!--WIDE: use 'isbody' and 'first' helpers to present body type parameter using full page width -->\n";
   stack1 = ((helpers.isbody || (depth0 && depth0.isbody) || helperMissing).call(depth0, (depth0 != null ? depth0.parameters : depth0), {"name":"isbody","hash":{},"fn":this.program(19, data),"inverse":this.program(22, data),"data":data}));
   if (stack1 != null) { buffer += stack1; }
-  return buffer;
+  return buffer + "                      </tr>\n                      </thead>\n                  <tbody class=\"operation-params\">\n\n                  </tbody>\n            </table>\n";
 },"19":function(depth0,helpers,partials,data) {
-  var stack1, helperMissing=helpers.helperMissing, buffer = "                  <table class='fullwidth'>\n                      <thead>\n                      <tr>\n                          <th colspan=\"5\"><h4 data-sw-translate>Parameter (body): ";
+  var stack1, helperMissing=helpers.helperMissing, buffer = "                      <thead>\n                      <tr>\n                          <th colspan=\"5\"><h4 data-sw-translate>Parameter (body): ";
   stack1 = ((helpers.first || (depth0 && depth0.first) || helperMissing).call(depth0, (depth0 != null ? depth0.parameters : depth0), {"name":"first","hash":{},"fn":this.program(20, data),"inverse":this.noop,"data":data}));
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "</h4></th>\n                      </tr>\n                      </thead>\n                      <tbody class=\"operation-params\">\n\n                      </tbody>\n                  </table>\n";
+  return buffer + "</h4></th>\n";
 },"20":function(depth0,helpers,partials,data) {
   var lambda=this.lambda, escapeExpression=this.escapeExpression;
   return escapeExpression(lambda((depth0 != null ? depth0.description : depth0), depth0));
   },"22":function(depth0,helpers,partials,data) {
-  return "                  <h4 data-sw-translate>Parameters</h4>\n                  <table class='fullwidth'>\n                      <thead>\n                      <tr>\n                          <th style=\"width: 100px; max-width: 100px\" data-sw-translate>Parameter</th>\n                          <th style=\"width: 310px; max-width: 610px\" data-sw-translate>Value</th>\n                          <th style=\"width: 100px; max-width: 200px\" data-sw-translate>Description</th>\n                          <th style=\"width:  50px; max-width:  50px\" data-sw-translate>Parameter Type</th>\n                          <th style=\"width: 100px; max-width: 100px\" data-sw-translate>Data Type</th>\n                      </tr>\n                      </thead>\n                      <tbody class=\"operation-params\">\n\n                      </tbody>\n                  </table>\n";
+  return "                  <h4 data-sw-translate>Parameters</h4>\n                      <thead>\n                      <tr>\n                          <th style=\"width: 100px; max-width: 100px\" data-sw-translate>Parameter</th>\n                          <th style=\"width: 310px; max-width: 310px\" data-sw-translate>Value</th>\n                          <th style=\"width: 100px; max-width: 200px\" data-sw-translate>Description</th>\n                          <th style=\"width:  50px; max-width:  50px\" data-sw-translate>Parameter Type</th>\n                          <th style=\"width: 100px; max-width: 100px\" data-sw-translate>Data Type</th>\n";
   },"24":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "                <h4>Response (Status "
     + escapeExpression(((helper = (helper = helpers.successCode || (depth0 != null ? depth0.successCode : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"successCode","hash":{},"data":data}) : helper)))
-    + ")</h4>\n                <p><span class=\"model-signature\" /></p>\n                <br/>\n                <!--<div class=\"response-content-type\" />-->\n";
+    + ")</h4>\n                <p><span class=\"model-signature\" /></p>\n                <br/>\n                <!--WIDE: this is moved to the 'try it' button <div class=\"response-content-type\" />-->\n";
 },"26":function(depth0,helpers,partials,data) {
-  return "-->\n          <!--<div style='margin:0;padding:0;display:inline'></div>-->\n          <!--<h4>Response Messages</h4>-->\n          <!--<table class='fullwidth'>-->\n            <!--<thead>-->\n            <!--<tr>-->\n              <!--<th>HTTP Status Code</th>-->\n              <!--<th>Reason</th>-->\n              <!--<th>Response Model</th>-->\n              <!--<th>Headers</th>-->\n            <!--</tr>-->\n            <!--</thead>-->\n            <!--<tbody class=\"operation-status\">-->\n\n            <!--</tbody>-->\n          <!--</table>-->\n          <!--";
+  return "\n          <div style='margin:0;padding:0;display:inline'></div>\n          <h4>Response Messages</h4>\n          <table class='fullwidth'>\n            <thead>\n            <tr>\n              <th>HTTP Status Code</th>\n              <th>Reason</th>\n              <th>Response Model</th>\n              <th>Headers</th>\n            </tr>\n            </thead>\n            <tbody class=\"operation-status\">\n\n            </tbody>\n          </table>\n          ";
   },"28":function(depth0,helpers,partials,data) {
   return "";
 },"30":function(depth0,helpers,partials,data) {
@@ -484,6 +484,7 @@ this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function
   if (stack1 != null) { buffer += stack1; }
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.description : depth0), {"name":"if","hash":{},"fn":this.program(5, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
+  buffer += "        <!--WIDE: add display of possible external reference in call description-->\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.externalDocs : depth0), {"name":"if","hash":{},"fn":this.program(7, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   stack1 = ((helper = (helper = helpers.oauth || (depth0 != null ? depth0.oauth : depth0)) != null ? helper : helperMissing),(options={"name":"oauth","hash":{},"fn":this.program(9, data),"inverse":this.noop,"data":data}),(typeof helper === functionType ? helper.call(depth0, options) : helper));
@@ -505,7 +506,7 @@ this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function
   if (stack1 != null) { buffer += stack1; }
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.type : depth0), {"name":"if","hash":{},"fn":this.program(24, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  buffer += "          <!--";
+  buffer += "          <!--WIDE: we will not display responses table since it is quite useless in our case-->\n          <!--";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.responseMessages : depth0), {"name":"if","hash":{},"fn":this.program(26, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "-->\n";
@@ -514,7 +515,7 @@ this["Handlebars"]["templates"]["operation"] = Handlebars.template({"1":function
   buffer += "        </form>\n        <div class='response' style='display:none'>\n          <h4>Curl</h4>\n          <div class='block curl'></div>\n          <h4 data-sw-translate>Request URL</h4>\n          <div class='block request_url'></div>\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.showRequestHeaders : depth0), {"name":"if","hash":{},"fn":this.program(32, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
-  buffer += "          <h4 data-sw-translate>Response Body</h4>\n          <div class='block response_body'></div>\n          <h4 data-sw-translate>Response Code</h4>\n          <div class='block response_code'></div>\n";
+  buffer += "          <h4 data-sw-translate>Response Body</h4>\n          <div class='block response_body'></div>\n          <h4 data-sw-translate>Response Code</h4>\n          <div class='block response_code'></div>\n          <!--WIDE: adding an ability to hide response headers-->\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.showResponseHeaders : depth0), {"name":"if","hash":{},"fn":this.program(34, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "        </div>\n      </div>\n    </li>\n  </ul>\n";
@@ -732,7 +733,7 @@ this["Handlebars"]["templates"]["param_required"] = Handlebars.template({"1":fun
   buffer += "</span></strong>\n    </td>\n    <td>";
   stack1 = ((helper = (helper = helpers.paramType || (depth0 != null ? depth0.paramType : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"paramType","hash":{},"data":data}) : helper));
   if (stack1 != null) { buffer += stack1; }
-  return buffer + "</td>\n    <td>\n        <span class=\"model-signature\"></span>\n    </td>\n";
+  return buffer + "</td>\n    <td><span class=\"model-signature\"></span></td>\n";
 },"16":function(depth0,helpers,partials,data) {
   var helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
   return "            <input class='parameter' class='required' type='file' name='"
@@ -748,11 +749,11 @@ this["Handlebars"]["templates"]["param_required"] = Handlebars.template({"1":fun
 },"19":function(depth0,helpers,partials,data) {
   return "";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1;
+  var stack1, buffer = "<!--WIDE: using 'justOne' helper to display body using full table width-->\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isBody : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(15, data),"data":data});
-  if (stack1 != null) { return stack1; }
-  else { return ''; }
-  },"useData":true});
+  if (stack1 != null) { buffer += stack1; }
+  return buffer;
+},"useData":true});
 this["Handlebars"]["templates"]["param"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
   var stack1, buffer = "";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.isFile : depth0), {"name":"if","hash":{},"fn":this.program(2, data),"inverse":this.program(4, data),"data":data});
@@ -909,7 +910,7 @@ this["Handlebars"]["templates"]["signature"] = Handlebars.template({"1":function
     + escapeExpression(((helper = (helper = helpers.exampleXML || (depth0 != null ? depth0.exampleXML : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"exampleXML","hash":{},"data":data}) : helper)))
     + "</code></pre>\n        <small class=\"notice\"></small>\n        </div>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div>\n<ul class=\"signature-nav\">\n  <li><a class=\"description-link\" href=\"#\" data-sw-translate>Model</a></li>\n  <li><a class=\"snippet-link\" href=\"#\" data-sw-translate>JSON Schema</a></li>\n";
+  var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<div>\n<ul class=\"signature-nav\">\n  <li><a class=\"description-link\" href=\"#\" data-sw-translate>Model</a></li>\n  <li><a class=\"snippet-link\" href=\"#\" data-sw-translate>JSON Schema</a></li>\n  <!--WIDE: adding example XML link-->\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.exampleXML : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "</ul>\n<div>\n\n<div class=\"signature-container\">\n  <div class=\"description\">\n    ";
@@ -917,7 +918,7 @@ this["Handlebars"]["templates"]["signature"] = Handlebars.template({"1":function
   if (stack1 != null) { buffer += stack1; }
   buffer += "\n  </div>\n\n  <div class=\"snippet\">\n    <pre><code>"
     + escapeExpression(((helper = (helper = helpers.sampleJSON || (depth0 != null ? depth0.sampleJSON : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"sampleJSON","hash":{},"data":data}) : helper)))
-    + "</code></pre>\n    <small class=\"notice\"></small>\n  </div>\n";
+    + "</code></pre>\n    <small class=\"notice\"></small>\n  </div>\n    <!--WIDE: adding example XML div-->\n";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.exampleXML : depth0), {"name":"if","hash":{},"fn":this.program(3, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   return buffer + "</div>\n\n";
@@ -31994,8 +31995,9 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     this.parentId = this.model.parentId;
     this.nickname = this.model.nickname;
     this.model.encodedParentId = encodeURIComponent(this.parentId);
-
+    //WIDE: adding helpers to allow parameter body handling
     Handlebars.registerHelper('isbody', function(collection, opts) {
+      // return True if parameter of type 'body' is first one and the only one
       if (collection.length === 1 && collection[0].in === 'body' ) {
         return opts.fn(this);
       } else {
@@ -32004,6 +32006,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     });
 
     Handlebars.registerHelper('first', function( collection, count, options ){
+      // return first parameter
       options = options || count;
       count = ( typeof count === 'number' ) ? count : 1;
       var result = '';
@@ -32160,7 +32163,9 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
         this.model.successCode = key;
         if (typeof value === 'object' && typeof value.createJSONSample === 'function') {
           signatureModel = {
+            //WIDE: use generated JSON as JSON sample
             sampleJSON: JSON.stringify(this.createModelSample(value), void 0, 2),
+            //WIDE: use example from swagger as XML sample
             exampleXML: this.formatXml(value.createJSONSample()),
             isParam: false,
             signature: value.getMockSignature()
@@ -32170,6 +32175,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     } else if (this.model.responseClassSignature && this.model.responseClassSignature !== 'string') {
       signatureModel = {
         sampleJSON: this.model.responseSampleJSON,
+        //WIDE: pass XML example to template
         exampleXML: this.model.exampleXML,
         isParam: false,
         signature: this.model.responseClassSignature
@@ -32179,6 +32185,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     if (opts.showRequestHeaders) {
       this.model.showRequestHeaders = true;
     }
+    //WIDE: pass showResponse flag to the engine
     if (opts.showResponseHeaders) {
       this.model.showResponseHeaders = true;
     }
@@ -32229,6 +32236,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     ref4 = this.model.parameters;
     for (p = 0, len3 = ref4.length; p < len3; p++) {
       param = ref4[p];
+      //WIDE: fetch proper JSON and XML samples
       param.justOne = (ref4.length === 1);
       var innerType = this.model.getType(param);
       if (this.model.models[innerType]) {
@@ -32469,6 +32477,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   // TODO: Cleanup CoffeeScript artifacts
   formatXml: function(xml) {
     var contexp, fn, formatted, indent, l, lastType, len, lines, ln, pad, reg, transitions, wsexp;
+    //WIDE: prevent error on empty xml
     if (!xml){
       return xml;
     }
@@ -32530,6 +32539,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
         }
         return results;
       })()).join('');
+      //WIDE: better display of DDLs
       ln = ln.replace(';',';\n'+padding).replace('<![CDATA[','<![CDATA[\n'+padding);
       if (fromTo === 'opening->closing') {
         formatted = formatted.substr(0, formatted.length - 1) + ln + '\n';
@@ -32543,7 +32553,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     }
     return formatted;
   },
-
+  //WIDE: this function uses stock schemaToJSON function to return generated JSON example by removing example from the spec for the duration of the call
   createModelSample: function (value) {
     var saveExample = value.definition.example;
     value.definition.example = null;
@@ -32592,7 +32602,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       var json = null;
       try {
         json = JSON.stringify(JSON.parse(content), null, '  ');
-        json = json.replace(/\\n/g, '\n'); // so DDL will show up pretty.
+        json = json.replace(/\\n/g, '\n'); //WIDE: so DDL will show up pretty.
       } catch (_error) {
         json = 'can\'t parse JSON.  Raw result:\n\n' + content;
       }
@@ -32668,6 +32678,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
 
     //adds curl output
     var curlCommand = this.model.asCurl(this.map);
+    //WIDE: added so XML in curl displayed properly
     curlCommand = curlCommand.replace('!', '&#33;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     $( '.curl', $(this.el)).html('<pre>' + curlCommand + '</pre>');
 
@@ -32798,7 +32809,7 @@ SwaggerUi.Views.ParameterView = Backbone.View.extend({
 
     var signatureModel = {
       sampleJSON: this.model.sampleJSON,
-      exampleXML: this.model.exampleXML,
+      exampleXML: this.model.exampleXML, //WIDE: oass example XML to template
       isParam: true,
       signature: this.model.signature
     };
@@ -32948,9 +32959,9 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
   events: {
     'click a.description-link'       : 'switchToDescription',
     'click a.snippet-link'           : 'switchToSnippet',
-    'click a.exampleXML-link'        : 'switchToXMLExample',
+    'click a.exampleXML-link'        : 'switchToXMLExample', //WIDE: register click on example link reaction
     'mousedown .snippet'             : 'snippetToTextArea',
-    'mousedown .exampleXML'          : 'exampleXMLToTextArea'
+    'mousedown .exampleXML'          : 'exampleXMLToTextArea' //WIDE: register click on example reaction
   },
 
   initialize: function () {
@@ -32961,7 +32972,7 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
 
     $(this.el).html(Handlebars.templates.signature(this.model));
 
-    //this.switchToSnippet();
+    //WIDE: first show description
     this.switchToDescription();
 
     this.isParam = this.model.isParam;
@@ -32985,7 +32996,7 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
     $('.exampleXML-link',  $(this.el)).removeClass('selected');
   },
 
-  // handler for show signature
+  //WIDE: handler for show XML example
   switchToXMLExample: function(e){
     if (e) { e.preventDefault(); }
 
@@ -33009,7 +33020,7 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
     $('.description-link', $(this.el)).removeClass('selected');
   },
 
-  // handler for output to text area
+  //WIDE: output sample text parameter to text area
   textToTextArea: function(e, sampleText) {
     if (this.isParam) {
       if (e) { e.preventDefault(); }
@@ -33026,13 +33037,13 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
     }
   },
 
-  // handler for snippet to text area
+  //WIDE: handler for snippet to text area; also switches application type to json
   snippetToTextArea: function(e) {
     this.textToTextArea(e, this.model.sampleJSON);
     $('div select[name=parameterContentType]', $(this.el.parentNode.parentNode.parentNode)).val('application/json');
   },
 
-  // handler for XML example to text area
+  //WIDE handler for XML example to text area; also switches application type to xml
   exampleXMLToTextArea: function(e) {
     this.textToTextArea(e, this.model.exampleXML);
     $('div select[name=parameterContentType]', $(this.el.parentNode.parentNode.parentNode)).val('application/xml');

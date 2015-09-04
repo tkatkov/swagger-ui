@@ -24,6 +24,7 @@
         <h4>Implementation Notes</h4>
         <div class="markdown">{{{description}}}</div>
         {{/if}}
+        <!--WIDE: add display of possible external reference in call description-->
         {{#if externalDocs}}
             <p>
                 <a href="{{externalDocs.url}}" target="_blank">{{externalDocs.description}}</a>
@@ -48,58 +49,53 @@
         <form accept-charset='UTF-8' class='sandbox'>
           <div style='margin:0;padding:0;display:inline'></div>
           {{#if parameters}}
+            <table class='fullwidth'>
+              <!--WIDE: use 'isbody' and 'first' helpers to present body type parameter using full page width -->
               {{#isbody parameters}}
-                  <table class='fullwidth'>
                       <thead>
                       <tr>
                           <th colspan="5"><h4 data-sw-translate>Parameter (body): {{#first parameters}}{{this.description}}{{/first}}</h4></th>
-                      </tr>
-                      </thead>
-                      <tbody class="operation-params">
-
-                      </tbody>
-                  </table>
               {{else}}
                   <h4 data-sw-translate>Parameters</h4>
-                  <table class='fullwidth'>
                       <thead>
                       <tr>
                           <th style="width: 100px; max-width: 100px" data-sw-translate>Parameter</th>
-                          <th style="width: 310px; max-width: 610px" data-sw-translate>Value</th>
+                          <th style="width: 310px; max-width: 310px" data-sw-translate>Value</th>
                           <th style="width: 100px; max-width: 200px" data-sw-translate>Description</th>
                           <th style="width:  50px; max-width:  50px" data-sw-translate>Parameter Type</th>
                           <th style="width: 100px; max-width: 100px" data-sw-translate>Data Type</th>
+              {{/isbody}}
                       </tr>
                       </thead>
-                      <tbody class="operation-params">
+                  <tbody class="operation-params">
 
-                      </tbody>
-                  </table>
-              {{/isbody}}
+                  </tbody>
+            </table>
           {{/if}}
           {{#if type}}
                 <h4>Response (Status {{successCode}})</h4>
                 <p><span class="model-signature" /></p>
                 <br/>
-                <!--<div class="response-content-type" />-->
+                <!--WIDE: this is moved to the 'try it' button <div class="response-content-type" />-->
           {{/if}}
-          <!--{{#if responseMessages}}-->
-          <!--<div style='margin:0;padding:0;display:inline'></div>-->
-          <!--<h4>Response Messages</h4>-->
-          <!--<table class='fullwidth'>-->
-            <!--<thead>-->
-            <!--<tr>-->
-              <!--<th>HTTP Status Code</th>-->
-              <!--<th>Reason</th>-->
-              <!--<th>Response Model</th>-->
-              <!--<th>Headers</th>-->
-            <!--</tr>-->
-            <!--</thead>-->
-            <!--<tbody class="operation-status">-->
+          <!--WIDE: we will not display responses table since it is quite useless in our case-->
+          <!--{{#if responseMessages}}
+          <div style='margin:0;padding:0;display:inline'></div>
+          <h4>Response Messages</h4>
+          <table class='fullwidth'>
+            <thead>
+            <tr>
+              <th>HTTP Status Code</th>
+              <th>Reason</th>
+              <th>Response Model</th>
+              <th>Headers</th>
+            </tr>
+            </thead>
+            <tbody class="operation-status">
 
-            <!--</tbody>-->
-          <!--</table>-->
-          <!--{{/if}}-->
+            </tbody>
+          </table>
+          {{/if}}-->
           {{#if isReadOnly}}
           {{else}}
           <div class="response-content-type" />
@@ -123,6 +119,7 @@
           <div class='block response_body'></div>
           <h4 data-sw-translate>Response Code</h4>
           <div class='block response_code'></div>
+          <!--WIDE: adding an ability to hide response headers-->
           {{#if showResponseHeaders}}
           <h4 data-sw-translate>Response Headers</h4>
           <div class='block response_headers'></div>

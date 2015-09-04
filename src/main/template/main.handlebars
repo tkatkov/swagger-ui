@@ -3,6 +3,7 @@
   <div class="info_title">{{info.title}}</div>
   <div class="info_description markdown">{{{info.description}}}</div>
   {{#if externalDocs}}
+  <!--WIDE:  make description clickable to external URL-->
   <p>
   <a href="{{externalDocs.url}}" target="_blank">{{externalDocs.description}}</a>
   </p>
@@ -20,7 +21,7 @@
   <div class="footer">
     <h4 style="color: #999">[ <span style="font-variant: small-caps">base url</span>: {{basePath}}
     {{#if info.version}}
-    , <span style="font-variant: small-caps">api version</span>: {{info.version}}
+  , <span style="font-variant: small-caps" data-sw-translate>api version</span>: {{info.version}}
     {{/if}}]
     {{#if validatorUrl}}
     <span style="float:right"><a href="{{validatorUrl}}/debug?url={{url}}"><img id="validator" src="{{validatorUrl}}?url={{url}}"></a>
