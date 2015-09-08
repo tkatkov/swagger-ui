@@ -49,28 +49,29 @@
         <form accept-charset='UTF-8' class='sandbox'>
           <div style='margin:0;padding:0;display:inline'></div>
           {{#if parameters}}
-            <table class='fullwidth'>
-              <!--WIDE: use 'isbody' and 'first' helpers to present body type parameter using full page width -->
-              {{#isbody parameters}}
-                      <thead>
-                      <tr>
-                          <th colspan="5"><h4 data-sw-translate>Parameter (body): {{#first parameters}}{{this.description}}{{/first}}</h4></th>
-              {{else}}
-                  <h4 data-sw-translate>Parameters</h4>
-                      <thead>
-                      <tr>
-                          <th style="width: 100px; max-width: 100px" data-sw-translate>Parameter</th>
-                          <th style="width: 310px; max-width: 310px" data-sw-translate>Value</th>
-                          <th style="width: 100px; max-width: 200px" data-sw-translate>Description</th>
-                          <th style="width:  50px; max-width:  50px" data-sw-translate>Parameter Type</th>
-                          <th style="width: 100px; max-width: 100px" data-sw-translate>Data Type</th>
-              {{/isbody}}
-                      </tr>
-                      </thead>
-                  <tbody class="operation-params">
+          <!--WIDE: use 'isbody' and 'first' helpers to present body type parameter using full page width -->
+          {{#isbody parameters}}
+          <table class='fullwidth'>
+          <thead>
+            <tr>
+            <th colspan="5"><h4 data-sw-translate>Parameter (body): {{#first parameters}}{{this.description}}{{/first}}</h4></th>
+          {{else}}
+          <h4 data-sw-translate>Parameters</h4>
+          <table class='fullwidth'>
+          <thead>
+            <tr>
+            <th style="width: 100px; max-width: 100px" data-sw-translate>Parameter</th>
+            <th style="width: 310px; max-width: 310px" data-sw-translate>Value</th>
+            <th style="width: 100px; max-width: 200px" data-sw-translate>Description</th>
+            <th style="width:  50px; max-width:  50px" data-sw-translate>Parameter Type</th>
+            <th style="width: 100px; max-width: 100px" data-sw-translate>Data Type</th>
+         {{/isbody}}
+            </tr>
+          </thead>
+          <tbody class="operation-params">
 
-                  </tbody>
-            </table>
+          </tbody>
+          </table>
           {{/if}}
           {{#if type}}
                 <h4>Response (Status {{successCode}})</h4>
@@ -78,24 +79,26 @@
                 <br/>
                 <!--WIDE: this is moved to the 'try it' button <div class="response-content-type" />-->
           {{/if}}
-          <!--WIDE: we will not display responses table since it is quite useless in our case-->
-          <!--{{#if responseMessages}}
+          {{#if responseMessages}}
+          <!--WIDE: we will not display responses table by default-->
+          {{#if showResponseMessages}}
           <div style='margin:0;padding:0;display:inline'></div>
           <h4>Response Messages</h4>
           <table class='fullwidth'>
             <thead>
             <tr>
-              <th>HTTP Status Code</th>
-              <th>Reason</th>
-              <th>Response Model</th>
-              <th>Headers</th>
+              <th data-sw-translate>HTTP Status Code</th>
+              <th data-sw-translate>Reason</th>
+              <th data-sw-translate>Response Model</th>
+              <th data-sw-translate>Headers</th>
             </tr>
             </thead>
             <tbody class="operation-status">
 
             </tbody>
           </table>
-          {{/if}}-->
+          {{/if}}
+          {{/if}}
           {{#if isReadOnly}}
           {{else}}
           <div class="response-content-type" />

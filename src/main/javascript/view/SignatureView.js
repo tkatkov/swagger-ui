@@ -34,11 +34,11 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
     if (e) { e.preventDefault(); }
 
     $('.snippet', $(this.el)).hide();
-    $('.exampleXML',  $(this.el)).hide();
+    $('.exampleXML',  $(this.el)).hide(); //WIDE: Hide also XML example
     $('.description', $(this.el)).show();
     $('.description-link', $(this.el)).addClass('selected');
     $('.snippet-link', $(this.el)).removeClass('selected');
-    $('.exampleXML-link',  $(this.el)).removeClass('selected');
+    $('.exampleXML-link',  $(this.el)).removeClass('selected');  //WIDE: Hide also XML example
   },
 
   //WIDE: handler for show XML example
@@ -58,10 +58,10 @@ SwaggerUi.Views.SignatureView = Backbone.View.extend({
     if (e) { e.preventDefault(); }
 
     $('.description', $(this.el)).hide();
-    $('.exampleXML',  $(this.el)).hide();
-    $('.snippet',     $(this.el)).show();
-    $('.snippet-link',     $(this.el)).   addClass('selected');
-    $('.exampleXML-link',  $(this.el)).removeClass('selected');
+    $('.exampleXML',  $(this.el)).hide(); //WIDE: Hide also XML example
+    $('.snippet', $(this.el)).show();
+    $('.snippet-link', $(this.el)).addClass('selected');
+    $('.exampleXML-link',  $(this.el)).removeClass('selected'); //WIDE: Hide also XML example
     $('.description-link', $(this.el)).removeClass('selected');
   },
 

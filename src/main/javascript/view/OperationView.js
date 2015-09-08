@@ -209,9 +209,12 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     if (opts.showRequestHeaders) {
       this.model.showRequestHeaders = true;
     }
-    //WIDE: pass showResponse flag to the engine
+    //WIDE: pass showResponse and showResponseMessages flags to the engine
     if (opts.showResponseHeaders) {
       this.model.showResponseHeaders = true;
+    }
+    if (opts.showResponseMessages) {
+      this.model.showResponseMessages = true;
     }
     $(this.el).html(Handlebars.templates.operation(this.model));
     if (signatureModel) {
